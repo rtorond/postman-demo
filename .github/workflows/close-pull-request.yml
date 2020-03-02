@@ -1,0 +1,31 @@
+name: Remove Feature Branch
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Slug environment variables
+      uses: rlespinasse/github-slug-action@1.1.0
+    - name: Import Vault Secrets
+      uses: ameausoone/vault-action@cb0fefd
+      with:
+        url: https://vault.factory.adeo.cloud
+        namespace: frlm/svcs-pltf
+        method: approle
+        roleId: ${{ secrets.VAULT_ROLE_ID }}
+        secretId: ${{ secrets.VAULT_SECRET_ID }}
+        secrets: |
+          cicd GCLOUD_PROJECT_ID_DEV ;
+          cicd GCP_APP_ENGINE_DEPLOYER_DEV_CRED ;
+    - name: Google Cloud Platform (GCP) CLI - gcloud
+      uses: actions-hub/gcloud@268.0.0
+      env:
+        PROJECT_ID: ${{env.GCLOUD_PROJECT_ID_DEV}}
+        APPLICATION_CREDENTIALS: ${{env.GCP_APP_ENGINE_DEPLOYER_DEV_CRED}}
+      with:
+        args: app versions delete ${{ env.GITHUB_HEAD_REF_SLUG }}
