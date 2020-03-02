@@ -1,0 +1,28 @@
+{
+  "carts": [
+    {
+      "id": "590b90c5-e114-434e-ab08-03a13f4d687c",
+      "user": "JM",
+      "products": [
+        {
+          "id": "b0e22751-3a31-4cbb-b00c-af18e8577347",
+          "quantity": 2
+        },
+        {
+          "id": "7ed9eaac-eeba-4ca7-a1d4-4d30dbc7ff37",
+          "quantity": 3
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": "JM",
+      "name": "Jean-Michel"
+    },
+    {
+      "id": "PL",
+      "name": "Pierre-Louis"
+    }
+  ]
+}

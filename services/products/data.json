@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "id": "b0e22751-3a31-4cbb-b00c-af18e8577347",
+      "name": "Cheese",
+      "price": 2.50,
+      "stock": 5
+    },
+    {
+      "id": "7ed9eaac-eeba-4ca7-a1d4-4d30dbc7ff37",
+      "name": "Crisps",
+      "price": 3,
+      "stock": 7
+    },
+    {
+      "id": "e6a43987-b1fe-40c3-acd1-ef42def7573b",
+      "name": "Pizza",
+      "price": 4,
+      "stock": 2
+    },
+    {
+      "id": "320c51af-4a87-4833-bfdb-c4910948df5f",
+      "name": "Chocolate",
+      "price": 1.50,
+      "stock": 3
+    },
+    {
+      "id": "f60fee7b-8b22-4cb8-b32d-4307e938c9bc",
+      "name": "Pasta",
+      "price": 1.20,
+      "stock": 13
+    },
+    {
+      "id": "7d389630-d4ff-473d-a6db-1ba02303d55a",
+      "name": "Self-raising flour",
+      "price": 1.50,
+      "stock": 1
+    },
+    {
+      "id": "0e368938-e658-4fe9-a771-87c50f8f6a04",
+      "name": "Ground almonds",
+      "price": 3,
+      "stock": 9
+    }
+  ]
+}
