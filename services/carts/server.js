@@ -18,6 +18,5 @@ app.use(bodyParser.json());
 // Create database instance and start server
 const adapter = new FileAsync('db.json');
 low(adapter).then(Router(app)).then(() => {
-  console.log("test");
   app.listen(PORT, () => console.log('listening on port ' + PORT));
 });
