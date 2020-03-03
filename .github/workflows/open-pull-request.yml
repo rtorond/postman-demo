@@ -27,7 +27,7 @@ jobs:
       uses: thollander/actions-comment-pull-request@1.0.0
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        message: '[carts-service] available on https://${{ env.GITHUB_REF_SLUG }}-dot-carts-dot-postman-demo-269812.appspot.com'
+        message: '[carts-service] available on https://${{ env.GITHUB_REF_SLUG }}-dot-cart-dot-postman-demo-269812.appspot.com'
     - name: Deploy [products-service] to App Engine
       uses: actions-hub/gcloud@268.0.0
       env:
@@ -46,5 +46,5 @@ jobs:
       with:
         args: >-
           newman run test/postman-demo.postman_collection.json
-          --env-var "cart-service-url=https://${{ env.GITHUB_REF_SLUG }}-dot-carts-dot-postman-demo-269812.appspot.com"
+          --env-var "cart-service-url=https://${{ env.GITHUB_REF_SLUG }}-dot-cart-dot-postman-demo-269812.appspot.com"
           --env-var "products-service-url=https://${{ env.GITHUB_REF_SLUG }}-dot-products-dot-postman-demo-269812.appspot.com"
