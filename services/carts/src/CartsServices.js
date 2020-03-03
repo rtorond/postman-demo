@@ -39,7 +39,7 @@ module.exports = db => ({
 
       if (unavailableProducts.length > 0) {
         return Promise.reject(
-            `Error: Products [${unavailableProducts.toString()}] not available in that quantity`);
+            `Error: Products not available in requested quantity [${unavailableProducts}]`);
       }
 
       // Save
