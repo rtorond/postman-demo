@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "b81685e3-c1a3-4822-84d7-a7deaf9d35b8",
+		"name": "postman-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Should not be able to create cart with unavailable product",
+			"item": [
+				{
+					"name": "1 - Get products availability",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bad6d7a1-2577-4392-87b3-ef9169dbf92b",
+								"exec": [
+									"pm.test(\"Should return products\", () => {",
+									"    pm.response.to.have.status(200);",
+									"    ",
+									"    const products = pm.response.json();",
+									"    ",
+									"    pm.expect(products).to.be.an('array').to.not.have.lengthOf(0);",
+									"    ",
+									"    pm.collectionVariables.set(\"productId\", products[0].id);",
+									"    pm.collectionVariables.set(\"productStock\", products[0].stock);",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products-service-url}}/products",
+							"host": [
+								"{{products-service-url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Create cart with unavailable products",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9f595de4-e267-4364-8e0d-5a3d583f5fbf",
+								"exec": [
+									"pm.collectionVariables.set(",
+									"    \"productQuantity\", ",
+									"    pm.collectionVariables.get(\"productStock\") + 3",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f84bb2eb-7046-49e5-ada3-65170a8d67c2",
+								"exec": [
+									"pm.test(\"Should not be able to create cart with quantity highter than stock\", () => {",
+									"    pm.response.to.have.status(500);",
+									"    ",
+									"    let expectMessage = \"Error: Products not available in requested quantity\";",
+									"    expectMessage += \" [\"+pm.collectionVariables.get(\"productId\")+\"]\";",
+									"    ",
+									"    pm.expect(pm.response.text()).to.equal(expectMessage);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user\": \"JM\",\n\t\"products\": [{\n\t\t\"id\": \"{{productId}}\",\n\t\t\"quantity\": {{productQuantity}}\n\t}]\n}"
+						},
+						"url": {
+							"raw": "{{cart-service-url}}/carts",
+							"host": [
+								"{{cart-service-url}}"
+							],
+							"path": [
+								"carts"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a7e3f6ad-00e0-4d67-96ef-da3ee0bc3cbf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ae7711b-87af-440f-9961-75393ee32914",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "bf9b61a8-5c36-468c-bc60-ec662fd1635e",
+			"key": "productId",
+			"value": "b0e22751-3a31-4cbb-b00c-af18e8577347",
+			"type": "string"
+		},
+		{
+			"id": "55b89a20-6ebf-4aee-8aeb-8f5721d5969c",
+			"key": "productStock",
+			"value": 5,
+			"type": "number"
+		},
+		{
+			"id": "453a3e76-526d-42fe-bcd0-a6ef79e3f92d",
+			"key": "productQuantity",
+			"value": 8,
+			"type": "number"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
