@@ -1,4 +1,4 @@
-name: Remove Feature Branch
+name: Remove from App Engine pull request
 
 on:
   pull_request:
