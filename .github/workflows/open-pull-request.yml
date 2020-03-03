@@ -44,4 +44,7 @@ jobs:
     - name: Integration tests with Postman & Newman
       uses: mikeal/npx@master
       with:
-        args: newman run postman_collection.json --global-var "cart-service-url=https://${{ env.GITHUB_REF_SLUG }}-dot-carts-dot-postman-demo-269812.appspot.com" --global-var "products-service-url=https://${{ env.GITHUB_REF_SLUG }}-dot-carts-dot-postman-demo-269812.appspot.com"
+        args: >-
+          newman run test/postman-demo.postman_collection.json
+          --env-var "cart-service-url=https://${{ env.GITHUB_REF_SLUG }}-dot-carts-dot-postman-demo-269812.appspot.com"
+          --env-var "products-service-url=https://${{ env.GITHUB_REF_SLUG }}-dot-products-dot-postman-demo-269812.appspot.com"
