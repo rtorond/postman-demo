@@ -44,5 +44,5 @@ jobs:
     - name: Integration tests
       uses: matt-ball/newman-action@master
       with:
-        collection: test/postman-demo.postman_collection.json
+        collection: /test/postman-demo.postman_collection.json
         globals: '{"carts-service-url":"https://${{ env.GITHUB_REF_SLUG }}-dot-carts-dot-postman-demo-269812.appspot.com/","products-service-url":"https://${{ env.GITHUB_REF_SLUG }}-dot-carts-dot-postman-demo-269812.appspot.com/"}'
