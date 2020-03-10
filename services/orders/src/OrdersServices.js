@@ -25,7 +25,7 @@ module.exports = db => ({
       const order = {
         ...cart,
         totalAmount: cart.products.reduce(
-            (result, p) => result + (p.price*p.quantity),
+            (result, p) => result + (p.price+p.quantity),
             0
         )
       };
