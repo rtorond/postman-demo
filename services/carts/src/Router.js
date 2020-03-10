@@ -24,6 +24,20 @@ module.exports = app => db => {
         .catch(errorMessage => res.status(500).send(errorMessage));
   });
 
+  // GET /user_cart/:user
+  app.get('/user_cart/:user', (req, res) => {
+    CartsServices
+        .getForUser(req.params.user)
+        .then(cart => res.send(cart))
+        .catch(errorMessage => res.status(500).send(errorMessage));
+  });
+
+  // DELETE /user_cart/:user
+  app.delete('/user_cart/:user', (req, res) => {
+    db.get('carts').remove({user: req.params.user}).write().then(
+        () => res.send());
+  });
+
   // DELETE /_reset
   app.delete('/_reset', (req, res) => {
     db.set('carts', []).write().then(() => res.send());

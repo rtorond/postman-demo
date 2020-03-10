@@ -2,7 +2,6 @@ const uuid = require('uuid');
 const ProductsServices = require("./ProductsServices");
 
 // Cart {
-//   id: UUID,
 //   user: string,
 //   products: [
 //     {
@@ -17,6 +16,25 @@ module.exports = db => ({
     return db.get('carts')
         .find({id})
         .value();
+  },
+
+  getForUser: user => {
+    const cart = db.get('carts')
+        .find({user})
+        .value();
+
+    if (!cart) {
+      return Promise.reject(`No cart found for user [${user}]`);
+    }
+
+    const productIds = cart.products.map(product => product.id);
+    return ProductsServices.getProducts(productIds).then(products => {
+      return {
+        ...cart,
+        products: cart.products.map(
+            p => ({...p, price: products.find(pp => pp.id === p.id).price}))
+      };
+    });
   },
 
   update: cart => {
@@ -43,15 +61,22 @@ module.exports = db => ({
       }
 
       // Save
-      const updatedCard = {id: uuid.v4(), ...cart};
-      return db.get('carts')
-          .push(updatedCard)
-          .write()
-          .then(() => {
-            console.log(
-                `Cart ${updatedCard.id} for user ${updatedCard.user} updated`);
-            return updatedCard;
-          });
+      let updatedCart = db.get('carts').find({user: cart.user}).value();
+      const done = () => {
+        console.log(`Cart for user ${cart.user} updated`);
+        return cart;
+      };
+
+      if (updatedCart) {
+        return db
+            .get('carts')
+            .find({user: cart.user})
+            .assign({...cart})
+            .write()
+            .then(done);
+      } else {
+        return db.get('carts').push(cart).write().then(done);
+      }
     });
   }
 });

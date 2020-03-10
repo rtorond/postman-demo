@@ -1,0 +1,24 @@
+{
+  "name": "orders",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "deploy": "gcloud app deploy --version manual-deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "latest",
+    "chokidar": "^3.3.1",
+    "custom-env": "^2.0.1",
+    "express": "latest",
+    "http-status-codes": "^1.4.0",
+    "lowdb": "latest",
+    "uuid": "^7.0.1"
+  },
+  "devDependencies": {}
+}
