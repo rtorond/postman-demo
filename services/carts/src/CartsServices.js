@@ -55,7 +55,7 @@ module.exports = db => ({
           })
           .map(p => p.id);
 
-      if (unavailableProducts.length > 0) {
+      if (unavailableProducts.length > 0 && unavailableProducts) {
         return Promise.reject(
             `Error: Products not available in requested quantity [${unavailableProducts}]`);
       }
